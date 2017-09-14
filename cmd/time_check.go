@@ -74,7 +74,7 @@ func (t *TimeCheck) Run(ctx context.Context, cfg *CLIConfigFlags) (string, int, 
 	}
 
 	// This is to check if NTP thinks the clock is unstable
-	if diff := tBuf.Esterror - maxEstErrorUs; diff > 0 {
+	if diff := int64(tBuf.Esterror) - maxEstErrorUs; diff > 0 {
 		return fmt.Sprintf("Clock is less stable than allowed. Max estimated error exceeded by: %s", time.Duration(diff)*time.Microsecond), statusFailure, nil
 	}
 
